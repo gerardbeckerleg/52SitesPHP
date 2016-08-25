@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-
+require_once 'Money.php';
 class MoneyTest extends TestCase
 {
     // ...
