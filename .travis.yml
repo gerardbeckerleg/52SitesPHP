@@ -4,3 +4,6 @@ php:
   - nightly
 
 script: phpunit --verbose .
+branches:
+  only:
+    - master
