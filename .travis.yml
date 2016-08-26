@@ -11,7 +11,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_5e7c56201796_key -iv $encrypted_5e7c56201796_iv
   -in deploy_rsa.enc -out deploy_rsa -d
 addons:
-  ssh_known_hosts: <deploy-host>
+  ssh_known_hosts: $DEPLOYHOST
 before_deploy:
   - eval "$(ssh-agent -s)"
   - chmod 600 $TRAVIS_BUILD_DIR/deploy_rsa
@@ -19,6 +19,6 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/ <ssh-user>@<deploy-host>:<deploy-path>
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/ $SSHUSER@$DEPLOYHOST:$DEPLOYPATH
   on:
   branch: master
