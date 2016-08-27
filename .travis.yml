@@ -2,7 +2,9 @@ language: php
 php:
   - '7.0'
   - nightly
-
+before_script:
+  - echo -e "Host $DEPLOYHOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script: phpunit --verbose .
 branches:
   only:
@@ -22,6 +24,4 @@ deploy:
   script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/ $SSHUSER@$DEPLOYHOST:$DEPLOYPATH
   on:
   branch: master
-  before_script:
-  - echo -e "Host $DEPLOYHOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  
